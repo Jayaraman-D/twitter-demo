@@ -20,9 +20,9 @@ const Login = () => {
   const isFormValid = userdata.username.trim() && userdata.password.trim()
 
   return (
-    <div className="container">
+    <div className="login-container">
       <div className="logo">
-        <img src={logo} alt='logo' />
+        <img className='login-image-logo' src={logo} alt='logo' />
       </div>
       <div className="login">
         <form onSubmit={(e) => e.preventDefault()}>
