@@ -22,8 +22,26 @@ import notificationRoute from './routes/notificationRoute.js'
 const PORT = process.env.PORT || 3000
 const app = express()
 
+const allowedOrigins = [
+    "https://todo-frontend-dbrh.onrender.com",
+    "http://localhost:5173",
+    "https://www.mongodb.com/docs/atlas/security-whitelist/"
+];
 
-app.use(cors())
+app.use(
+    cors({
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        credentials: true, // 👈 allows cookies or auth headers
+    })
+);
+
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
