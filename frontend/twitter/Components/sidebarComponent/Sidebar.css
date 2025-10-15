@@ -1,18 +1,16 @@
-/* Sidebar wrapper */
 .sidebar {
-  width: 30vw;             /* takes 30% of viewport width */
-  height: 100vh;    /* full height */
+  width: 30vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;  /* stack top+bottom */
-  justify-content: space-between; /* push profile to bottom */
-  background-color: #000;  /* dark Twitter look */
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #000;
   color: #fff;
   padding: 1rem 0;
   border-right: 1px solid #333;
   box-sizing: border-box;
 }
 
-/* Top part (logo + menu items) */
 .container1 {
   display: flex;
   flex-direction: column;
@@ -21,12 +19,11 @@
 }
 
 .logo img {
-  width: 40px;   /* small X logo */
+  width: 40px;
   height: auto;
   margin-bottom: 2rem;
 }
 
-/* Menu bars wrapper */
 .bars {
   display: flex;
   flex-direction: column;
@@ -34,7 +31,6 @@
   width: 100%;
 }
 
-/* Individual menu items */
 .bars div {
   display: flex;
   align-items: center;
@@ -47,7 +43,7 @@
 }
 
 .bars div:hover {
-  background-color: #1a1a1a; /* hover highlight */
+  background-color: #1a1a1a;
 }
 
 .bars i {
@@ -58,8 +54,19 @@
 .container2 {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* fix */
   padding: 1rem;
   border-top: 1px solid #333;
+}
+
+.logout {
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.logout:hover {
+  color: #1da1f2;
 }
 
 .profile-img h2 {
@@ -73,12 +80,17 @@
   color: #aaa;
 }
 
-/* Responsive: narrow sidebar on small screens */
+/* Responsive */
 @media (max-width: 768px) {
   .sidebar {
     width: 20vw;
   }
+
   .bars div p {
-    display: none; /* only show icons on small screen */
+    display: none;
+  }
+
+  .bars div {
+    justify-content: center;
   }
 }

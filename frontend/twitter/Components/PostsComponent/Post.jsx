@@ -24,16 +24,6 @@ const Post = () => {
         </div>
 
         <div className="posted">
-            <h3>This is a post 3</h3>
-           <img src={postimg} alt='image' />
-            <div className="buttons">
-                <button>like</button>
-                 <button>Comment</button>
-                  <button>share</button>
-            </div>
-        </div>
-
-        <div className="posted">
             <h3>This is a post 4</h3>
             <div className="buttons">
                 <button>like</button>
