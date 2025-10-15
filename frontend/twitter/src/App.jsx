@@ -1,15 +1,26 @@
 import React from 'react'
+import Homepage from '../src/pages/Home/Homepage/Homepage.jsx'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
   return (
     <>
+      <Homepage />
 
-      <div className="badge text-bg-primary text-wrap">
-        This text should wrap.
-      </div>
-      <h1>hai</h1>
-
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"   // or "dark", "light"
+      />
     </>
   )
 }
