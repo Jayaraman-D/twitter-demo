@@ -25,7 +25,11 @@ const Post = () => {
 
 
             <div className="posted">
-                <h3>This is a post 1</h3>
+                <div className="user-info">
+                    <img src={postimg} alt="dp" />
+                    <h3 className="username">ram</h3>
+                </div>
+                <h3>This is a post 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, provident ipsam! Obcaecati ad doloremque quaerat, deserunt officia suscipit temporibus aliquid sit soluta voluptatibus porro, animi illo sint quisquam repellendus inventore.</h3>
                 <div className="buttons">
                     <button>like</button>
                     <button>Comment</button>
@@ -34,6 +38,10 @@ const Post = () => {
             </div>
 
             <div className="posted">
+                <div className="user-info">
+                    <img src={postimg} alt="dp" />
+                    <h3 className="username">ram</h3>
+                </div>
                 <h3>This is a post 2</h3>
                 <div className="buttons">
                     <button>like</button>
@@ -43,6 +51,10 @@ const Post = () => {
             </div>
 
             <div className="posted">
+                <div className="user-info">
+                    <img src={postimg} alt="dp" />
+                    <h3 className="username">ram</h3>
+                </div>
                 <h3>This is a post 4</h3>
                 <div className="buttons">
                     <button>like</button>
