@@ -76,6 +76,28 @@
   border-top: 1px solid #333;
 }
 
+.profile-img{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.profile-img img{
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  
+}
+
+.profile-img h2 {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+
 .logout {
   font-size: 1.3rem;
   cursor: pointer;
@@ -86,16 +108,7 @@
   color: #1da1f2;
 }
 
-.profile-img h2 {
-  font-size: 1rem;
-  margin: 0;
-}
 
-.profile-img h3 {
-  font-size: 0.8rem;
-  margin: 0;
-  color: #aaa;
-}
 
 /* ============================
    Posts

@@ -5,28 +5,13 @@ import logo from '/logos/x-logo.png';
 import { BaseURL } from '../../BaseUrl/BaseURL.js'
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '../../src/context/UserContext.jsx';
 
 const Sidebar = ({setActiveSection}) => {
+    const {user} = useUser();
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [bio, setBio] = useState('');
+  
     
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-
-                const res = await axios.get(`${BaseURL}/api/auth/me`, { withCredentials: true });
-                setUsername(res.data.username);
-                setBio(res.data.bio);
-
-            } catch (error) {
-                console.log(error.message);
-                toast.error(error.response.data.error);
-            }
-        }
-        fetchUser();
-    }, [])
     const handleLogout = async () => {
         try {
 
@@ -68,13 +53,13 @@ const Sidebar = ({setActiveSection}) => {
 
                 <div className="container2">
                     <div className="profile-img">
-
-                        <h2>{username}</h2>
-                        <h3>{bio}</h3>
+                        <img src={user.profileImg || logo} alt='dp' />
+                        <h2>{user.username}</h2>
                     </div>
                     <i className=" logout bi bi-box-arrow-right" onClick={handleLogout}></i>
-
+                      
                 </div>
+                
             </div>
 
             <ToastContainer position='top-center' autoClose={1000} theme='dark' />

@@ -7,36 +7,39 @@ import Signup from './pages/auth/singnup/Signup.jsx'
 import Toast from './Toast.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Homepage from './pages/Home/Homepage/Homepage.jsx'
+import { UserProvider } from './context/UserContext.jsx'
 
 const Router = createBrowserRouter([
   {
-    path:'/',
-    element: <App/>
+    path: '/',
+    element: <App />
   },
   {
-    path:'/login',
-    element:<Login />
+    path: '/login',
+    element: <Login />
   },
   {
-    path:"/signup",
-    element:<Signup />
+    path: "/signup",
+    element: <Signup />
   },
   {
-    path:'/home',
-    element: <Homepage/>
+    path: '/home',
+    element: <Homepage />
   },
   {
-    path:'/toast',
-    element:<Toast />
+    path: '/toast',
+    element: <Toast />
   }
 
 ])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={Router}>
+    <UserProvider>
+      <RouterProvider router={Router} />
 
-    </RouterProvider>
+
+    </UserProvider>
 
   </StrictMode>,
 )

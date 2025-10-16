@@ -3,9 +3,11 @@ import './Post.css'
 import postimg from '/logos/x-logo.png'
 import axios from 'axios';
 import { BaseURL } from '../../BaseUrl/BaseURL'
+import { useUser } from '../../src/context/UserContext';
 
 const Post = () => {
     const [usersPost, setUsersPost] = useState([]);
+    const {user} = useUser();
 
 
     useEffect(() => {
@@ -24,8 +26,8 @@ const Post = () => {
             <div className="new-post">
                 <div className="text-area">
                     <div className="user-info">
-                        <img src={postimg} alt="dp" />
-                        <h3 className="username">ram</h3>
+                        <img src={user.profileImge||postimg} alt="dp" />
+                        <h3 className="username">{user.username}</h3>
                     </div>
                     <input type="text" placeholder="What is happening?" />
                 </div>
