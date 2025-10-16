@@ -6,10 +6,11 @@ import { BaseURL } from '../../BaseUrl/BaseURL.js'
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
 
-const Sidebar = () => {
+const Sidebar = ({setActiveSection}) => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
+    
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -49,15 +50,15 @@ const Sidebar = () => {
                         <img src={logo} alt='logo' />
                     </div>
                     <div className="bars">
-                        <div className="home">
+                        <div className="home" onClick={()=>setActiveSection('home')}>
                             <i className="bi bi-house-door-fill"></i>
                             <p>Home</p>
                         </div>
-                        <div className="notification">
+                        <div className="notification" onClick={()=> setActiveSection('notification')}>
                             <i className="bi bi-bell-fill"></i>
                             <p>Notification</p>
                         </div>
-                        <div className="profile">
+                        <div className="profile" onClick={()=> setActiveSection('profile')}>
                             <i className="bi bi-person-fill"></i>
                             <p>Profile</p>
                         </div>
