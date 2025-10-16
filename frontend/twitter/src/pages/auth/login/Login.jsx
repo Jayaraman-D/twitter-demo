@@ -4,8 +4,14 @@ import axios from 'axios'
 import { BaseURL } from '../../../../BaseUrl/BaseURL';
 import { ToastContainer, toast } from 'react-toastify';
 import logo from '/logos/x-logo.png' // if file in public/logos folder
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useUser } from '../../../context/UserContext';
+
+
 const Login = () => {
+
+  const { setUser, setIsAuthenticated , fetchUser} = useUser();
+
   const [userdata, setUserdata] = useState({
     username: '',
     password: ''
@@ -20,18 +26,21 @@ const Login = () => {
       console.log(res.data);
       toast.success(res.data.message);
 
-      setUserdata({
-      username: '',
-      password: ''
-    })
+      await fetchUser();
+      setIsAuthenticated(true);
 
-    setTimeout(()=>{
-      navigate('/');
-    },1000)
+      setUserdata({
+        username: '',
+        password: ''
+      })
+      
+      setTimeout(() => {
+        navigate('/');
+      }, 1000)
 
     } catch (error) {
       console.log(error.message);
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.error || "Login Failed");
     }
 
   }
