@@ -4,7 +4,7 @@ import axios from 'axios'
 import { BaseURL } from '../../../../BaseUrl/BaseURL';
 import { ToastContainer, toast } from 'react-toastify';
 import logo from '/logos/x-logo.png' // if file in public/logos folder
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 const Login = () => {
   const [userdata, setUserdata] = useState({
     username: '',
@@ -70,6 +70,9 @@ const Login = () => {
             >
               Login
             </button>
+            <p className='text-center my-2'>Don't have an account?</p>
+            <Link className='d-block text-center my-2' to='/signup'>Signup</Link>
+
           </form>
         </div>
       </div>
