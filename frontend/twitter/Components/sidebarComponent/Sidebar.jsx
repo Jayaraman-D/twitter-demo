@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
 import axios from 'axios';
 import logo from '/logos/x-logo.png';
 import { BaseURL } from '../../BaseUrl/BaseURL.js'
 import { toast, ToastContainer } from 'react-toastify';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [username, setUsername] = useState('');
+    const [bio, setBio] = useState('');
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+
+                const res = await axios.get(`${BaseURL}/api/auth/me`, { withCredentials: true });
+                setUsername(res.data.username);
+                setBio(res.data.bio);
+
+            } catch (error) {
+                console.log(error.message);
+                toast.error(error.response.data.error);
+            }
+        }
+        fetchUser();
+    }, [])
     const handleLogout = async () => {
         try {
 
             const res = await axios.get(`${BaseURL}/api/auth/logout`, { withCredentials: true });
             toast.success(res.data.message);
-            setTimeout(()=>{
-                 navigate('/login');
-            },1000)
+            setTimeout(() => {
+                navigate('/login');
+            }, 1000)
 
         } catch (error) {
             console.log(`Error Occured in Logout:  ${error.message}`);
@@ -50,8 +68,8 @@ const Sidebar = () => {
                 <div className="container2">
                     <div className="profile-img">
 
-                        <h2>Jai</h2>
-                        <h3>Developer</h3>
+                        <h2>{username}</h2>
+                        <h3>{bio}</h3>
                     </div>
                     <i className=" logout bi bi-box-arrow-right" onClick={handleLogout}></i>
 
