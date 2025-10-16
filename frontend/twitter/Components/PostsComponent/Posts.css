@@ -1,34 +1,10 @@
-.posts{
-    width: 60vw;
-    height: 100vh;
-    /* border: 2px solid  gold; */
-    color: blueviolet;
-    margin: 0 auto;
-  padding: 1rem;
-  background-color: #000; /* dark background */
-  color: #fff;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-/* Outer posts container */
-
-
-/* The two toggle buttons row */
-.feedtype {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-/* Style both buttons */
 .feedtype button {
   flex: 1;
   padding: 0.5rem 1rem;
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-  color: #aaa;
+  color: #aaa; /* default color */
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -40,26 +16,8 @@
   color: #1da1f2;
 }
 
-/* Active state — add a class “active” to the current button in React */
+/* Active button */
 .feedtype button.active {
-  color: #1da1f2;
+  color: #1da1f2; /* blue text for active tab */
   border-bottom-color: #1da1f2;
-}
-
-/* Example Post/Following sections below the buttons */
-.posts > .post,
-.posts > .following {
-  padding: 1rem;
-  background-color: #111;
-  border-radius: 8px;
-}
-
-/* Optional responsive tweak */
-@media (max-width: 768px) {
-  .feedtype {
-    gap: 0.5rem;
-  }
-  .feedtype button {
-    font-size: 0.9rem;
-  }
 }

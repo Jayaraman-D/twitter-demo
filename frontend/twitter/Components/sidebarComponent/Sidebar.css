@@ -1,5 +1,8 @@
+
+/*
 .sidebar {
-  width: 30vw;
+  position: fixed;
+  width: 20vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -51,10 +54,12 @@
 }
 
 /* Bottom profile area */
+
+/*
 .container2 {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* fix */
+  justify-content: space-between;
   padding: 1rem;
   border-top: 1px solid #333;
 }
@@ -80,7 +85,7 @@
   color: #aaa;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .sidebar {
     width: 20vw;
@@ -94,3 +99,5 @@
     justify-content: center;
   }
 }
+ */
+
