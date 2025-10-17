@@ -13,7 +13,6 @@ const Following = () => {
         const fetchUser = async () => {
             try {
                 const res = await axios.get(`${BaseURL}/api/posts/following`, { withCredentials: true });
-                console.log('API RES:', res.data);
                 if(Array.isArray(res.data)){
                     setFollowingPost(res.data);
                     setMessage('');
