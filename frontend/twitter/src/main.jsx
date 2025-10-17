@@ -1,12 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+
 import App from './App.jsx';
 import Login from './pages/auth/login/Login.jsx';
 import Signup from './pages/auth/singnup/Signup.jsx';
-import Toast from './Toast.jsx';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Homepage from './pages/Home/Homepage/Homepage.jsx';
 import { UserProvider } from './context/UserContext.jsx';
 import ProtectedRoute from './protectedRoute/ProtectedRoute.jsx';
 
@@ -32,15 +30,7 @@ const Router = createBrowserRouter([
       },
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <Signup /> },
-      // {
-      //   path: '/home',
-      //   element: (
-      //     <ProtectedRoute>
-      //       <Homepage />
-      //     </ProtectedRoute>
-      //   )
-      // },
-      { path: '/toast', element: <Toast /> }
+
     ]
   }
 ]);
