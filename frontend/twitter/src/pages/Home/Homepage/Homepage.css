@@ -257,15 +257,20 @@
 @media (max-width: 768px) {
   .homepage-container {
     flex-direction: column;
+    align-items: center;
   }
 
-  .sidebar {
+  /* .sidebar {
     position: relative;
     width: 100%;
     height: auto;
     flex-direction: row;
     justify-content: space-around;
     border-right: none;
+  } */
+
+  .sidebar{
+    display: none;
   }
 
   .main-content {
@@ -296,5 +301,9 @@
   .suggestUser button {
     padding: 4px 10px;
     font-size: 12px;
+  }
+
+  .main-content {
+    width: 100vw;
   }
 }
