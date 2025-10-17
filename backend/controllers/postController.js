@@ -7,10 +7,10 @@ import cloudinary from 'cloudinary'
 
 export const createPost = async (req, res) => {
     try {
-        const { img, text } = req.body;
+        let { img, text } = req.body;
         const myId = req.user._id;
 
-        const user = await User.findById(myId)
+        let user = await User.findById(myId)
 
         if (!user) {
             return res.status(404).json({ error: " User not found" })

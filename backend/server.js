@@ -10,8 +10,9 @@ dotenv.config()
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
-    api_secret_key: process.env.CLOUD_SECRET_KEY
+    api_secret: process.env.CLOUD_API_SECRET_KEY
 })
+
 
 import connectDB from './db/connectDB.js'
 import authRoute from './routes/authRoute.js'
