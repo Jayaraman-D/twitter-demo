@@ -10,7 +10,7 @@ const App = () => {
       <Homepage />
 
       <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -19,7 +19,7 @@ const App = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored"   // or "dark", "light"
+        theme="dark"  
       />
     </>
   )
