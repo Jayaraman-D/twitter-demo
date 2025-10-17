@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     // Only fetch user if NOT on login/signup page
-    if (location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/') {
+    if (location.pathname !== '/login' && location.pathname !== '/signup') {
       fetchUser();
     } else {
       setLoading(false); // prevent blocking UI on login/signup page

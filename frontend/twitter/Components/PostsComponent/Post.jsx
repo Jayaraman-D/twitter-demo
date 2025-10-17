@@ -4,10 +4,12 @@ import postimg from '/logos/x-logo.png'
 import axios from 'axios';
 import { BaseURL } from '../../BaseUrl/BaseURL'
 import { useUser } from '../../src/context/UserContext';
+import { toast } from 'react-toastify';
 
 const Post = () => {
     const [usersPost, setUsersPost] = useState([]);
-    const {user} = useUser();
+    const { user } = useUser();
+    const [newPost, setnewPost] = useState('');
 
 
     useEffect(() => {
@@ -16,20 +18,33 @@ const Post = () => {
                 const res = await axios.get(`${BaseURL}/api/posts/all`, { withCredentials: true });
                 setUsersPost(res.data);
             } catch (error) {
-                console.log(error.message);
+                console.log('Error in fetching users posts:' ,error.message);
+                toast.error(error.response?.data?.error || "Something went wrong")
             }
         }
         fetchUser();
-    }, [])
+    }, [newPost])
+    const handleCreatePost = async () => {
+        try {
+            const res = await axios.post(`${BaseURL}/api/posts/create`, { text: newPost }, { withCredentials: true });
+            toast.success(res.data.message);
+            setnewPost('');
+        } catch (error) {
+            console.log('Error occured in handle create post:', error.message);
+            toast.error(error.response?.data.error);
+        }
+    }
+
     return (
         <div className='post'>
             <div className="new-post">
                 <div className="text-area">
                     <div className="user-info">
-                        <img src={user.profileImge||postimg} alt="dp" />
+                        <img src={user.profileImge || postimg} alt="dp" />
                         <h3 className="username">{user.username}</h3>
                     </div>
-                    <input type="text" placeholder="What is happening?" />
+                    <input type="text" placeholder="What is happening?"
+                        value={newPost} onChange={(e) => setnewPost(e.target.value)} />
                 </div>
 
                 <div className="post-btn">
@@ -37,7 +52,7 @@ const Post = () => {
                         <i className="bi bi-image"></i>
                         <i className="bi bi-emoji-smile"></i>
                     </div>
-                    <button type="button">Post</button>
+                    <button type="button" onClick={handleCreatePost}>Post</button>
                 </div>
             </div>
 
@@ -57,18 +72,7 @@ const Post = () => {
                     </div>
                 ))
             )}
-            <div className="posted">
-                <div className="user-info">
-                    <img src={postimg} alt="dp" />
-                    <h3 className="username">ram</h3>
-                </div>
-                <h3>This is a post 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, provident ipsam! Obcaecati ad doloremque quaerat, deserunt officia suscipit temporibus aliquid sit soluta voluptatibus porro, animi illo sint quisquam repellendus inventore.</h3>
-                <div className="buttons">
-                    <button>like</button>
-                    <button>Comment</button>
-                    <button>share</button>
-                </div>
-            </div>
+          
         </div>
     )
 }
