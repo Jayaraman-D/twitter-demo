@@ -37,7 +37,12 @@ const Following = () => {
                             <img src={post.user.profileImg || postimg} alt='dp' />
                             <h3 className="username">{post.user.username}</h3>
                         </div>
-                        <h3>{post.text}</h3>
+                        {post.text && <h3 className='username'>{post.text}</h3>}
+                        {post.img && (
+                            <div className="post-image">
+                                <img src={post.img} alt="following post" />
+                            </div>
+                        )}
                         <div className="buttons">
                             <button>like</button>
                             <button>Comment</button>
