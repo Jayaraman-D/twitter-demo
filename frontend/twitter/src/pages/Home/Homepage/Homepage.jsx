@@ -15,6 +15,7 @@ const Homepage = () => {
         {activeSection === 'home' && <Posts />}
         {activeSection === 'notification' && <Notification />}
         {activeSection === 'profile' && <Profile />}
+        {activeSection === 'suggestion' && <Suggestions />}
       </main>
       <aside className='suggestions-container'>
         <Suggestions />

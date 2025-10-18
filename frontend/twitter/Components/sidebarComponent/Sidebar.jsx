@@ -7,11 +7,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../src/context/UserContext.jsx';
 
-const Sidebar = ({setActiveSection}) => {
-    const {user} = useUser();
+const Sidebar = ({ setActiveSection }) => {
+    const { user } = useUser();
     const navigate = useNavigate();
-  
-    
+
+
     const handleLogout = async () => {
         try {
 
@@ -35,17 +35,21 @@ const Sidebar = ({setActiveSection}) => {
                         <img src={logo} alt='logo' />
                     </div>
                     <div className="bars">
-                        <div className="home" onClick={()=>setActiveSection('home')}>
+                        <div className="home" onClick={() => setActiveSection('home')}>
                             <i className="bi bi-house-door-fill"></i>
                             <p>Home</p>
                         </div>
-                        <div className="notification" onClick={()=> setActiveSection('notification')}>
+                        <div className="notification" onClick={() => setActiveSection('notification')}>
                             <i className="bi bi-bell-fill"></i>
                             <p>Notification</p>
                         </div>
-                        <div className="profile" onClick={()=> setActiveSection('profile')}>
+                        <div className="profile" onClick={() => setActiveSection('profile')}>
                             <i className="bi bi-person-fill"></i>
                             <p>Profile</p>
+                        </div>
+                        <div className="suggestion" onClick={()=> setActiveSection('suggestion')}>
+                            <i className="bi bi-people-fill"></i>
+                            <p>Suggestions</p>
                         </div>
 
                     </div>
@@ -57,9 +61,9 @@ const Sidebar = ({setActiveSection}) => {
                         <h2>{user.username}</h2>
                     </div>
                     <i className=" logout bi bi-box-arrow-right" onClick={handleLogout}></i>
-                      
+
                 </div>
-                
+
             </div>
 
             <ToastContainer position='top-center' autoClose={1000} theme='dark' />
