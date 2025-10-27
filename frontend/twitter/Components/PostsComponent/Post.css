@@ -1,6 +1,7 @@
 .new-post {
   width: 100%;
-  background-color: #111; /* match dark theme */
+  background-color: #111;
+  /* match dark theme */
   color: #fff;
   border-bottom: 1px solid #2f3336;
   padding: 15px 20px;
@@ -21,6 +22,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  
 }
 
 .user-info img {
@@ -35,6 +37,14 @@
   font-size: 16px;
   font-weight: 600;
   color: #e7e9ea;
+}
+
+.time {
+  position: relative;
+  top: 5px;
+  left: 10px;
+  font-size: 14px;
+  color: gray;
 }
 
 /* Input area */
@@ -125,12 +135,16 @@
 
 .post-image img {
   width: 100%;
-  height: auto;           /* keeps full image aspect ratio */
-  object-fit: contain;    /* ensures no cropping */
+  height: auto;
+  /* keeps full image aspect ratio */
+  object-fit: contain;
+  /* ensures no cropping */
   border-radius: 10px;
   margin-top: 10px;
-  background-color: #000; /* optional: gives a clean border if image doesn’t fill */
-  max-height: 600px;      /* optional: prevent extra-tall images from breaking layout */
+  background-color: #000;
+  /* optional: gives a clean border if image doesn’t fill */
+  max-height: 600px;
+  /* optional: prevent extra-tall images from breaking layout */
   display: block;
   margin-left: auto;
   margin-right: auto;

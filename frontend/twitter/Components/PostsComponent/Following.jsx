@@ -4,20 +4,21 @@ import postimg from '/logos/x-logo.png'
 import axios from 'axios'
 import { BaseURL } from '../../BaseUrl/BaseURL'
 import { toast } from 'react-toastify'
+import { formatDistanceToNow } from 'date-fns'
 
 const Following = () => {
     const [followingPost, setFollowingPost] = useState([]);
-    const [message , setMessage] = useState('')
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const res = await axios.get(`${BaseURL}/api/posts/following`, { withCredentials: true });
-                if(Array.isArray(res.data)){
+                if (Array.isArray(res.data)) {
                     setFollowingPost(res.data);
                     setMessage('');
                 }
-                else{
+                else {
                     setFollowingPost([]);
                     setMessage(res.data.message);
                 }
@@ -36,6 +37,7 @@ const Following = () => {
                         <div className="user-info">
                             <img src={post.user.profileImg || postimg} alt='dp' />
                             <h3 className="username">{post.user.username}</h3>
+                            <h6 className='time'>{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}</h6>
                         </div>
                         {post.text && <h3 className='username'>{post.text}</h3>}
                         {post.img && (
@@ -51,7 +53,7 @@ const Following = () => {
                     </div>
                 ))
             )}
-       
+
         </div>
     )
 }

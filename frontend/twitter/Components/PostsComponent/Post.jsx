@@ -5,6 +5,7 @@ import axios from 'axios';
 import { BaseURL } from '../../BaseUrl/BaseURL'
 import { useUser } from '../../src/context/UserContext';
 import { toast } from 'react-toastify';
+import { formatDistanceToNow } from 'date-fns';
 
 const Post = () => {
     const [usersPost, setUsersPost] = useState([]);
@@ -55,6 +56,7 @@ const Post = () => {
         }
     }
 
+
     return (
         <div className='post'>
             <div className="new-post">
@@ -100,6 +102,7 @@ const Post = () => {
                         <div className="user-info">
                             <img src={post.user.profileImg || postimg} alt='dp' />
                             <h3 className="username">{post.user.username}</h3>
+                            <h6 className='time'>{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}</h6>
                         </div>
                         {/* Render post text if available */}
                         {post.text && <p className="post-text">{post.text}</p>}
