@@ -13,6 +13,7 @@ const Post = () => {
     const [newPost, setnewPost] = useState('');
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
 
     useEffect(() => {
@@ -26,7 +27,8 @@ const Post = () => {
             }
         }
         fetchUser();
-    }, [newPost])
+    }, [newPost, refresh])
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -53,6 +55,28 @@ const Post = () => {
         } catch (error) {
             console.log('Error occured in handle create post:', error.message);
             toast.error(error.response?.data.error);
+        }
+    }
+
+    const handleDeletePost = async (id) => {
+        try {
+            const res = await axios.delete(`${BaseURL}/api/posts/delete/${id}`, { withCredentials: true });
+            toast.success(res.data.message);
+            setRefresh(!refresh);
+        } catch (error) {
+            console.log(`Error occured in delete post: ${error.message}`);
+            toast.error(error.response?.data?.error || "Something went wrong");
+        }
+    }
+
+    const handleLikeAndUnlike = async (id) => {
+        try {
+            const res = await axios.post(`${BaseURL}/api/posts/like/${id}`, {}, { withCredentials: true });
+            toast.success(res.data.message);
+            setRefresh(!refresh);
+        } catch (error) {
+            console.log(`Error occured in like&unlike button: ${error.message}`);
+            toast.error(error.response?.data?.error);
         }
     }
 
@@ -104,7 +128,7 @@ const Post = () => {
                             <h3 className="username">{post.user.username}</h3>
                             <h6 className='time'>{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}</h6>
                             {post.user?._id === user?._id && (
-                                <i className="bi bi-trash delete"></i>
+                                <i className="bi bi-trash delete" onClick={() => handleDeletePost(post._id)}></i>
                             )}
 
 
@@ -120,9 +144,9 @@ const Post = () => {
                             </div>
                         )}
                         <div className="buttons">
-                            <button>like</button>
-                            <button>Comment</button>
-                            <button>Share</button>
+                            <button onClick={() => handleLikeAndUnlike(post._id)}><i className="bi bi-suit-heart"></i> {post.likes?.length || 0}</button>
+                            <button><i className="bi bi-chat"></i></button>
+                            <button><i className="bi bi-send-arrow-up"></i></button>
                         </div>
                     </div>
                 ))
