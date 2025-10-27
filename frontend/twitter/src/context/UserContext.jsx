@@ -8,6 +8,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
+    _id:'',
     username: '',
     profileImg: '',
     bio: ''
@@ -23,7 +24,8 @@ export const UserProvider = ({ children }) => {
       setUser({
         username: res.data.username,
         bio: res.data.bio,
-        profileImg: res.data.profileImg
+        profileImg: res.data.profileImg,
+        _id:res.data._id
       });
       setIsAuthenticated(true);
     } catch (error) {
