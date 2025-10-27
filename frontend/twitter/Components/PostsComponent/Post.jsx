@@ -6,6 +6,9 @@ import { BaseURL } from '../../BaseUrl/BaseURL'
 import { useUser } from '../../src/context/UserContext';
 import { toast } from 'react-toastify';
 import { formatDistanceToNow } from 'date-fns';
+import CommentSection from '../commentSection/CommentSection';
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 const Post = () => {
     const [usersPost, setUsersPost] = useState([]);
@@ -14,6 +17,8 @@ const Post = () => {
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
     const [refresh, setRefresh] = useState(false);
+    const [activePost, setActivePost] = useState(null);
+    const [showComments, setShowComments] = useState(false);
 
 
     useEffect(() => {
@@ -80,6 +85,11 @@ const Post = () => {
         }
     }
 
+    const handleToggleComments = (postId) => {
+        setActivePost((prev) => (prev === postId ? null : postId));
+    };
+
+
 
     return (
         <div className='post'>
@@ -145,10 +155,31 @@ const Post = () => {
                         )}
                         <div className="buttons">
                             <button onClick={() => handleLikeAndUnlike(post._id)}><i className="bi bi-suit-heart"></i> {post.likes?.length || 0}</button>
-                            <button><i className="bi bi-chat"></i></button>
+                            <button onClick={() => setActivePost(activePost === post._id ? null : post._id)}>
+                                <i className="bi bi-chat"></i> {post.comments?.length || 0}
+                            </button>
+
                             <button><i className="bi bi-send-arrow-up"></i></button>
                         </div>
+
+                        <AnimatePresence>
+                            {activePost === post._id && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <CommentSection
+                                        postId={post._id}
+                                        existingComments={post.comments}
+                                        onClose={() => setActivePost(null)}
+                                    />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
+
                 ))
             )}
 

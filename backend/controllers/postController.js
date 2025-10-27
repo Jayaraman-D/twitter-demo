@@ -116,42 +116,85 @@ export const likeUnlike = async (req, res) => {
     }
 }
 
+// export const addComments = async (req, res) => {
+//     try {
+
+//         const { id } = req.params
+//         const myId = req.user._id
+//         const { text } = req.body
+
+//         const post = await Post.findById(id)
+//         if (!post) {
+//             return res.status(404).json({ error: "Post Not found" })
+//         }
+
+//         const user = await User.findById(myId)
+//         if (!user) {
+//             return res.status(404).json({ error: "User not found" })
+//         }
+
+//         if (!text) {
+//             return res.status(400).json({ error: "Please enter the comments" })
+//         }
+
+//         const addComment = {
+//             text,
+//             user: myId
+//         }
+
+//         post.comments.push(addComment)
+//         await post.save()
+
+//         res.status(200).json({ message: "Successfully posted the comments" })
+
+//     } catch (error) {
+//         console.log(`Error occured in add comments  controller: ${error.message}`)
+//         res.status(500).json({ error: "Internal server error" })
+//     }
+// }
+
 export const addComments = async (req, res) => {
-    try {
+  try {
+    const { id } = req.params;
+    const myId = req.user._id;
+    const { text } = req.body;
 
-        const { id } = req.params
-        const myId = req.user._id
-        const { text } = req.body
+    const post = await Post.findById(id);
+    if (!post) return res.status(404).json({ error: "Post Not found" });
 
-        const post = await Post.findById(id)
-        if (!post) {
-            return res.status(404).json({ error: "Post Not found" })
-        }
+    const user = await User.findById(myId).select("username profileImg");
+    if (!user) return res.status(404).json({ error: "User not found" });
 
-        const user = await User.findById(myId)
-        if (!user) {
-            return res.status(404).json({ error: "User not found" })
-        }
+    if (!text) return res.status(400).json({ error: "Please enter a comment" });
 
-        if (!text) {
-            return res.status(400).json({ error: "Please enter the comments" })
-        }
+    const addComment = {
+      text,
+      user: myId
+    };
 
-        const addComment = {
-            text,
-            user: myId
-        }
+    post.comments.push(addComment);
+    await post.save();
 
-        post.comments.push(addComment)
-        await post.save()
+    // Get the last added comment (the one we just pushed)
+    const newComment = post.comments[post.comments.length - 1];
 
-        res.status(200).json({ message: "Successfully posted the comments" })
+    // Attach user info so frontend doesn’t break
+    const populatedComment = {
+      ...newComment.toObject(),
+      user: user
+    };
 
-    } catch (error) {
-        console.log(`Error occured in add comments  controller: ${error.message}`)
-        res.status(500).json({ error: "Internal server error" })
-    }
-}
+    res.status(200).json({
+      message: "Successfully posted the comment",
+      comment: populatedComment
+    });
+
+  } catch (error) {
+    console.log(`Error occurred in addComments controller: ${error.message}`);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 
 export const allPosts = async (req, res) => {
     try {
