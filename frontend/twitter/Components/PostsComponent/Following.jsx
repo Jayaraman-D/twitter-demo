@@ -83,6 +83,7 @@ const Following = () => {
                                         postId={post._id}
                                         existingComments={post.comments}
                                         onClose={() => setActivePost(null)}
+                                        onCommentAdded={() => setRefresh(prev => !prev)}
                                     />
                                 </motion.div>
                             )}

@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { formatDistanceToNow } from "date-fns";
 import "./CommentSection.css";
 
-const CommentSection = ({ postId, existingComments }) => {
+const CommentSection = ({ postId, existingComments, onCommentAdded }) => {
     const { user } = useUser();
     const [comments, setComments] = useState(existingComments || []);
     const [newComment, setNewComment] = useState("");
@@ -26,18 +26,21 @@ const CommentSection = ({ postId, existingComments }) => {
             // Add the new comment to UI immediately
             setComments((prev) => [...prev, res.data.comment]);
             setNewComment("");
+            if (onCommentAdded) onCommentAdded();
         } catch (error) {
             toast.error(error.response?.data?.error || "Failed to add comment");
         }
     };
 
-    const handleDeleteComment = async (commentId)=>{
+    const handleDeleteComment = async (commentId) => {
         try {
 
-            const res = await axios.delete(`${BaseURL}/api/posts/${postId}/comment/${commentId}`, {withCredentials: true});
+            const res = await axios.delete(`${BaseURL}/api/posts/${postId}/comment/${commentId}`, { withCredentials: true });
             toast.success(res.data.message);
             setComments((prev) => prev.filter((c) => c._id !== commentId));
-            
+
+            if (onCommentAdded) onCommentAdded();
+
         } catch (error) {
             console.log(`Error occured in handle delete comment: ${error.message}`);
         }
@@ -60,7 +63,7 @@ const CommentSection = ({ postId, existingComments }) => {
                                     {typeof c.user === "object" ? c.user.username : "Anonymous"}
                                 </span>
 
-                             {c.user._id === user._id && <i className="bi bi-trash commentTrash" onClick={()=> handleDeleteComment(c._id)} ></i> }   
+                                {c.user._id === user._id && <i className="bi bi-trash commentTrash" onClick={() => handleDeleteComment(c._id)} ></i>}
 
                             </div>
                             <p className="commentText">{c.text}</p>
