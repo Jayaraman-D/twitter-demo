@@ -1,7 +1,17 @@
+/* Overall post wrapper */
+.post {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #2f3336;
+}
+
+/* New post area (input + image + post button) */
 .new-post {
   width: 100%;
   background-color: #111;
-  /* match dark theme */
   color: #fff;
   border-bottom: 1px solid #2f3336;
   padding: 15px 20px;
@@ -10,7 +20,7 @@
   gap: 10px;
 }
 
-/* Top section: DP + Username + Input */
+/* DP + username + input field */
 .text-area {
   display: flex;
   flex-direction: column;
@@ -21,15 +31,15 @@
 .user-info {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 10px;
-  
 }
 
 .user-info img {
-  width: 45px !important;
-  height: 45px !important;
+  width: 45px;
+  height: 45px;
   border-radius: 50% !important;
-  border: 2px solid white;
+  border: 2px solid #fff;
   object-fit: cover;
 }
 
@@ -39,15 +49,7 @@
   color: #e7e9ea;
 }
 
-.time {
-  position: relative;
-  top: 5px;
-  left: 10px;
-  font-size: 14px;
-  color: gray;
-}
-
-/* Input area */
+/* Input box */
 .text-area input {
   background-color: transparent;
   border: none;
@@ -63,46 +65,7 @@
   color: #71767b;
 }
 
-/* Post button & icons */
-.post-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.icons {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.icons i {
-  font-size: 1.3rem;
-  color: #1d9bf0;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.icons i:hover {
-  transform: scale(1.1);
-}
-
-.post-btn button {
-  background-color: #1d9bf0;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  padding: 8px 18px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.post-btn button:hover {
-  background-color: #1a8cd8;
-}
-
+/* Preview image after upload */
 .image-preview {
   position: relative;
   margin-top: 10px;
@@ -129,36 +92,134 @@
   font-size: 14px;
 }
 
+/* Icons + post button row */
+.post-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icons i {
+  font-size: 1.3rem;
+  color: #1d9bf0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icons i:hover {
+  transform: scale(1.1);
+}
+
 .icons label {
   cursor: pointer;
+}
+
+.post-btn button {
+  background-color: #1d9bf0;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-btn button:hover {
+  background-color: #1a8cd8;
+}
+
+/* ======== POSTED CONTENT ======== */
+.posted {
+  padding: 15px 20px;
+  border-bottom: 1px solid #2f3336;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #000;
+}
+
+.posted .user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.posted .user-info img {
+  width: 40px;
+  height: 40px;
+}
+
+.posted .username {
+  font-size: 15px;
+}
+
+.time {
+  font-size: 13px;
+  color: gray;
+  margin-left: auto;
+}
+
+.delete {
+  font-size: 1.2rem;
+  color: #e0245e;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.2s ease;
+}
+
+.delete:hover {
+  color: #ff3366;
+}
+
+.post-text {
+  font-size: 16px;
+  color: #fff;
+  margin: 6px 0;
 }
 
 .post-image img {
   width: 100%;
   height: auto;
-  /* keeps full image aspect ratio */
   object-fit: contain;
-  /* ensures no cropping */
   border-radius: 10px;
-  margin-top: 10px;
   background-color: #000;
-  /* optional: gives a clean border if image doesn’t fill */
   max-height: 600px;
-  /* optional: prevent extra-tall images from breaking layout */
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-
-.post-text {
-  font-size: 16px;
-  color: #fff;
-  margin: 8px 0;
+/* Action buttons below post */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #2f3336;
+  padding-top: 8px;
 }
 
+.buttons button {
+  background: none;
+  border: none;
+  color: #1d9bf0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
 
-/* Responsive tweaks */
+.buttons button:hover {
+  color: #1a8cd8;
+}
+
+/* ======== Responsive Design ======== */
 @media (max-width: 768px) {
   .new-post {
     padding: 12px 15px;
@@ -181,10 +242,12 @@
   .icons i {
     font-size: 1.1rem;
   }
-}
 
-@media (max-width: 768px) {
   .post-image img {
     max-height: 400px;
+  }
+
+  .time {
+    font-size: 12px;
   }
 }

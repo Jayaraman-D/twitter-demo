@@ -103,6 +103,7 @@ const Post = () => {
                             <img src={post.user.profileImg || postimg} alt='dp' />
                             <h3 className="username">{post.user.username}</h3>
                             <h6 className='time'>{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}</h6>
+                            <i className="bi bi-trash delete"></i>
                         </div>
                         {/* Render post text if available */}
                         {post.text && <p className="post-text">{post.text}</p>}
