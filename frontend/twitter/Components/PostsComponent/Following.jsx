@@ -5,10 +5,14 @@ import axios from 'axios'
 import { BaseURL } from '../../BaseUrl/BaseURL'
 import { toast } from 'react-toastify'
 import { formatDistanceToNow } from 'date-fns'
+import { motion, AnimatePresence } from 'framer-motion'
+import CommentSection from '../commentSection/CommentSection'
 
 const Following = () => {
     const [followingPost, setFollowingPost] = useState([]);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
+    const [activePost, setActivePost] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -17,6 +21,7 @@ const Following = () => {
                 if (Array.isArray(res.data)) {
                     setFollowingPost(res.data);
                     setMessage('');
+
                 }
                 else {
                     setFollowingPost([]);
@@ -28,7 +33,20 @@ const Following = () => {
             }
         }
         fetchUser();
-    }, [])
+    }, [refresh])
+
+    const handleLikeAndUnlike = async (id) => {
+        try {
+            const res = await axios.post(`${BaseURL}/api/posts/like/${id}`, {}, { withCredentials: true });
+            toast.success(res.data.message);
+            setRefresh(!refresh);
+        } catch (error) {
+            console.log(`Error occured in like&unlike button: ${error.message}`);
+            toast.error(error.response?.data?.error);
+        }
+    }
+
+
     return (
         <div className='post'>
             {followingPost.length === 0 ? (<p>{message}</p>) : (
@@ -46,10 +64,29 @@ const Following = () => {
                             </div>
                         )}
                         <div className="buttons">
-                            <button>like</button>
-                            <button>Comment</button>
-                            <button>share</button>
+                            <button onClick={() => handleLikeAndUnlike(post._id)}><i className="bi bi-suit-heart"></i> {post.likes?.length || 0}</button>
+                            <button onClick={() => setActivePost(activePost === post._id ? null : post._id)}>
+                                <i className="bi bi-chat"></i> {post.comments?.length || 0}
+                            </button>
+
+                            <button><i className="bi bi-send-arrow-up"></i></button>
                         </div>
+                        <AnimatePresence>
+                            {activePost === post._id && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <CommentSection
+                                        postId={post._id}
+                                        existingComments={post.comments}
+                                        onClose={() => setActivePost(null)}
+                                    />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 ))
             )}

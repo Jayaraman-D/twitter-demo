@@ -85,9 +85,9 @@ const Post = () => {
         }
     }
 
-    const handleToggleComments = (postId) => {
-        setActivePost((prev) => (prev === postId ? null : postId));
-    };
+    // const handleToggleComments = (postId) => {
+    //     setActivePost((prev) => (prev === postId ? null : postId));
+    // };
 
 
 

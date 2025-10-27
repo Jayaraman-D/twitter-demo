@@ -31,6 +31,18 @@ const CommentSection = ({ postId, existingComments }) => {
         }
     };
 
+    const handleDeleteComment = async (commentId)=>{
+        try {
+
+            const res = await axios.delete(`${BaseURL}/api/posts/${postId}/comment/${commentId}`, {withCredentials: true});
+            toast.success(res.data.message);
+            setComments((prev) => prev.filter((c) => c._id !== commentId));
+            
+        } catch (error) {
+            console.log(`Error occured in handle delete comment: ${error.message}`);
+        }
+    }
+
     return (
         <div className="commentSection">
             <div className="commentsList">
@@ -47,6 +59,8 @@ const CommentSection = ({ postId, existingComments }) => {
                                 <span className="username">
                                     {typeof c.user === "object" ? c.user.username : "Anonymous"}
                                 </span>
+
+                             {c.user._id === user._id && <i className="bi bi-trash commentTrash" onClick={()=> handleDeleteComment(c._id)} ></i> }   
 
                             </div>
                             <p className="commentText">{c.text}</p>

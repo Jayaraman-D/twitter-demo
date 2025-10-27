@@ -42,6 +42,14 @@
   object-fit: cover;
 }
 
+.commentTrash {
+  position: relative;
+  left: 75%;
+  color: red;
+  font-size: large;
+  cursor: pointer;
+}
+
 .commentText {
   margin-left: 33px;
   font-size: 1.3rem;

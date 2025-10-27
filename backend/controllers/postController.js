@@ -154,45 +154,45 @@ export const likeUnlike = async (req, res) => {
 // }
 
 export const addComments = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const myId = req.user._id;
-    const { text } = req.body;
+    try {
+        const { id } = req.params;
+        const myId = req.user._id;
+        const { text } = req.body;
 
-    const post = await Post.findById(id);
-    if (!post) return res.status(404).json({ error: "Post Not found" });
+        const post = await Post.findById(id);
+        if (!post) return res.status(404).json({ error: "Post Not found" });
 
-    const user = await User.findById(myId).select("username profileImg");
-    if (!user) return res.status(404).json({ error: "User not found" });
+        const user = await User.findById(myId).select("username profileImg");
+        if (!user) return res.status(404).json({ error: "User not found" });
 
-    if (!text) return res.status(400).json({ error: "Please enter a comment" });
+        if (!text) return res.status(400).json({ error: "Please enter a comment" });
 
-    const addComment = {
-      text,
-      user: myId
-    };
+        const addComment = {
+            text,
+            user: myId
+        };
 
-    post.comments.push(addComment);
-    await post.save();
+        post.comments.push(addComment);
+        await post.save();
 
-    // Get the last added comment (the one we just pushed)
-    const newComment = post.comments[post.comments.length - 1];
+        // Get the last added comment (the one we just pushed)
+        const newComment = post.comments[post.comments.length - 1];
 
-    // Attach user info so frontend doesn’t break
-    const populatedComment = {
-      ...newComment.toObject(),
-      user: user
-    };
+        // Attach user info so frontend doesn’t break
+        const populatedComment = {
+            ...newComment.toObject(),
+            user: user
+        };
 
-    res.status(200).json({
-      message: "Successfully posted the comment",
-      comment: populatedComment
-    });
+        res.status(200).json({
+            message: "Successfully posted the comment",
+            comment: populatedComment
+        });
 
-  } catch (error) {
-    console.log(`Error occurred in addComments controller: ${error.message}`);
-    res.status(500).json({ error: "Internal server error" });
-  }
+    } catch (error) {
+        console.log(`Error occurred in addComments controller: ${error.message}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
 };
 
 
@@ -302,6 +302,36 @@ export const userPosts = async (req, res) => {
 
     } catch (error) {
         console.error(`Error occurred in userPosts controller: ${error.message}`);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+export const deleteComment = async (req, res) => {
+    try {
+        const { postId, commentId } = req.params;
+        const myId = req.user._id;
+
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        const comment = post.comments.id(commentId);
+        if (!comment) {
+            return res.status(404).json({ error: "Comment not found" });
+        }
+
+        if (comment.user.toString() !== myId.toString()) {
+            return res.status(403).json({ error: "You are not allowed to delete this comment" });
+        }
+
+         post.comments.pull(commentId);
+        await post.save();
+
+        res.status(200).json({ message: "Successfully deleted the comment" });
+
+    } catch (error) {
+        console.error(`Error occurred in delete comment controller: ${error.message}`);
         res.status(500).json({ error: 'Internal server error' });
     }
 }
