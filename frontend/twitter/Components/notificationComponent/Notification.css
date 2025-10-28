@@ -1,0 +1,125 @@
+/* Root container */
+.notificationComponent {
+  background-color: #000;
+  color: #e7e9ea;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border-left: 1px solid #2f3336;
+  border-right: 1px solid #2f3336;
+  min-height: 100vh;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* Header */
+.notificationComponent > div:first-child {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 15px 20px;
+  border-bottom: 1px solid #2f3336;
+  position: sticky;
+  top: 0;
+  background-color: #000;
+  z-index: 5;
+}
+
+/* Wrapper for notifications */
+.notify {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each notification card */
+.notification-notify {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #2f3336;
+  padding: 15px 20px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.notification-notify:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+/* User info section */
+.notification-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification-user-info img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notification-username {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e7e9ea;
+}
+
+.timing {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #71767b;
+}
+
+/* Notification message */
+.notification-type {
+  font-size: 0.95rem;
+  margin: 8px 0 12px 55px; /* aligns under profile image */
+  color: #e7e9ea;
+}
+
+/* Action buttons */
+.notification-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: 55px;
+}
+
+.notification-actions button {
+  background-color: transparent;
+  color: #1d9bf0;
+  border: 1px solid #1d9bf0;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.notification-actions button:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+}
+
+.notification-actions button:nth-child(2) {
+  border-color: #f4212e;
+  color: #f4212e;
+}
+
+.notification-actions button:nth-child(2):hover {
+  background-color: rgba(244, 33, 46, 0.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .notificationComponent {
+    border: none;
+  }
+
+  .notification-user-info img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .notification-type,
+  .notification-actions {
+    margin-left: 50px;
+  }
+}
