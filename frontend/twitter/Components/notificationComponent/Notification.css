@@ -1,125 +1,197 @@
-/* Root container */
+/* ===========================
+   NOTIFICATION COMPONENT (X Style)
+=========================== */
+
 .notificationComponent {
+  /* max-width: 600px; */
+  margin: 0 auto;
+  padding: 20px 16px;
   background-color: #000;
   color: #e7e9ea;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   border-left: 1px solid #2f3336;
   border-right: 1px solid #2f3336;
   min-height: 100vh;
-  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-/* Header */
-.notificationComponent > div:first-child {
+.notification-title {
   font-size: 1.5rem;
   font-weight: 700;
-  padding: 15px 20px;
+  padding-bottom: 12px;
   border-bottom: 1px solid #2f3336;
-  position: sticky;
-  top: 0;
-  background-color: #000;
-  z-index: 5;
+  margin-bottom: 12px;
 }
 
-/* Wrapper for notifications */
+/* ===========================
+   NOTIFICATION LIST
+=========================== */
+
 .notify {
   display: flex;
   flex-direction: column;
 }
 
-/* Each notification card */
-.notification-notify {
+/* Notification card */
+.notification-card {
   display: flex;
   flex-direction: column;
+  padding: 12px 10px;
   border-bottom: 1px solid #2f3336;
-  padding: 15px 20px;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.notification-notify:hover {
-  background-color: rgba(255, 255, 255, 0.03);
+  transition: background 0.2s ease;
   cursor: pointer;
 }
 
-/* User info section */
-.notification-user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.notification-card:hover {
+  background-color: rgba(255, 255, 255, 0.137);
 }
 
-.notification-user-info img {
-  width: 45px;
-  height: 45px;
+/* Unread style */
+.notification-card.unread {
+  background-color: rgba(151, 178, 196, 0.171);
+}
+
+/* ===========================
+   HEADER (IMG + USER + TIME)
+=========================== */
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-header img {
+  width: 50px;
+  height: 50px;
+  border: 2px solid white;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.notification-username {
+.notification-header div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.notification-header h3 {
+  margin: 0;
   font-size: 1rem;
   font-weight: 600;
+  line-height: 1.2;
   color: #e7e9ea;
 }
 
-.timing {
-  margin-left: auto;
+.notification-time {
   font-size: 0.85rem;
   color: #71767b;
+  margin-top: 2px;
 }
 
-/* Notification message */
-.notification-type {
+/* ===========================
+   BODY (Text like "liked your post")
+=========================== */
+
+.notification-body {
   font-size: 0.95rem;
-  margin: 8px 0 12px 55px; /* aligns under profile image */
+  margin-left: 62px; /* Align with text beside profile image */
+  margin-top: 4px;
   color: #e7e9ea;
 }
 
-/* Action buttons */
+/* ===========================
+   ACTION BUTTONS
+=========================== */
+
 .notification-actions {
   display: flex;
   gap: 10px;
-  margin-left: 55px;
+  margin-left: 62px;
+  margin-top: 6px;
 }
 
 .notification-actions button {
-  background-color: transparent;
+  background: transparent;
+  border: 1px solid #2f3336;
   color: #1d9bf0;
-  border: 1px solid #1d9bf0;
-  border-radius: 9999px;
+  font-size: 0.85rem;
   padding: 6px 14px;
-  font-size: 0.9rem;
+  border-radius: 20px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease;
+}
+
+.notification-actions button:last-child{
+  background: transparent;
+  border: 1px solid red;
+  color: red;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .notification-actions button:hover {
   background-color: rgba(29, 155, 240, 0.1);
+  border-color: #1d9bf0;
 }
 
-.notification-actions button:nth-child(2) {
-  border-color: #f4212e;
-  color: #f4212e;
+/* ===========================
+   EMPTY / LOADING STATES
+=========================== */
+
+.notify p {
+  text-align: center;
+  color: #71767b;
+  margin-top: 40px;
 }
 
-.notification-actions button:nth-child(2):hover {
-  background-color: rgba(244, 33, 46, 0.1);
-}
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
 
-/* Mobile responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .notificationComponent {
-    border: none;
+    max-width: 100%;
+    padding: 16px 12px;
   }
 
-  .notification-user-info img {
-    width: 40px;
-    height: 40px;
+  .notification-header img {
+    width: 42px;
+    height: 42px;
   }
 
-  .notification-type,
+  .notification-header h3 {
+    font-size: 0.95rem;
+  }
+
+  .notification-time {
+    font-size: 0.8rem;
+  }
+
+  .notification-body {
+    font-size: 0.9rem;
+    margin-left: 54px;
+  }
+
   .notification-actions {
-    margin-left: 50px;
+    margin-left: 54px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notification-title {
+    font-size: 1.3rem;
+  }
+
+  .notification-header img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .notification-actions button {
+    font-size: 0.75rem;
+    padding: 5px 10px;
   }
 }

@@ -48,10 +48,34 @@ export const deleteNotification = async (req, res) => {
             res.status(200).json({ message: " No notification" })
         }
 
-        res.status(200).json({ message: "Successfully deleted the notification" })
+        res.status(200).json({ message: "Successfully deleted all the notifications" })
 
     } catch (error) {
         console.log(`Error occurred in deleteNotification controller: ${error.message}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export const deleteSingleNotification = async (req, res) => {
+    try {
+
+        const myid = req.user._id;
+        const { id } = req.params;
+
+        const user = await User.findById(myid);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const deleteNotification = await Notification.findByIdAndDelete({ _id: id });
+        if (!deleteNotification) {
+            return res.status(404).json({ error: "Notification not found" });
+        }
+
+        res.status(200).json({ message: "Successfully deleted the notification" });
+
+    } catch (error) {
+        console.log(`Error occurred in delete single notification controller: ${error.message}`);
         res.status(500).json({ error: "Internal server error" });
     }
 }
