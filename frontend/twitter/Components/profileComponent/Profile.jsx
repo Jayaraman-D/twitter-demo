@@ -1,8 +1,15 @@
 import React from 'react'
+import UserProfile from '../userProfile/UserProfile.jsx'
+import Posts from '../PostsComponent/Posts.jsx'
+
 
 const Profile = () => {
   return (
-    <div>Profile component</div>
+    <div>
+      <UserProfile />
+      <Posts />
+     
+    </div>
   )
 }
 
