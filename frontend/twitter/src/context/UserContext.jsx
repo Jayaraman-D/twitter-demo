@@ -11,7 +11,14 @@ export const UserProvider = ({ children }) => {
     _id:'',
     username: '',
     profileImg: '',
-    bio: ''
+    bio: '',
+    fullname:'',
+    link:'',
+    profileImg:'',
+    coverImg:'',
+    createdAt:'',
+    following: [],
+    followers:[]
   });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -25,7 +32,14 @@ export const UserProvider = ({ children }) => {
         username: res.data.username,
         bio: res.data.bio,
         profileImg: res.data.profileImg,
-        _id:res.data._id
+        _id:res.data._id,
+        link:res.data.link,
+        profileImg: res.data.profileImg,
+        coverImg: res.data.coverImg,
+        createdAt:res.data.createdAt,
+        fullname: res.data.fullname,
+        following: res.data.following,
+        followers: res.data.followers
       });
       setIsAuthenticated(true);
     } catch (error) {

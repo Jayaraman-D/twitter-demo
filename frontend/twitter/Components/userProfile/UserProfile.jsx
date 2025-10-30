@@ -2,47 +2,52 @@ import React from 'react'
 import coverImage from '/logos/cover-image.png'
 import profilePic from '/logos/profile-pic.png'
 import './UserProfile.css'
+import { useUser } from '../../src/context/UserContext'
+import { format } from 'date-fns'
+import { useNavigate } from 'react-router-dom'
 
 const UserProfile = () => {
-    return (
-        <div className='user-profile-component'>
-            <div className="user-information">
-                <i className="bi bi-arrow-left"></i>
-                <h2 className="userProfile-username">Bala</h2>
-                <p className="post-count">4 posts</p>
-            </div>
+  const { user } = useUser();
+  const navigate = useNavigate();
 
-            <div className="user-profile-images">
-                <div className="cover-image">
-                    <img src={coverImage} alt="cover-image" />
-                </div>
-                <div className="user-profile-pic">
-                    <img src={profilePic} alt="profile-pic" />
-                </div>
+  return (
+    <div className='user-profile-component'>
+      <div className="user-information">
+        <i className="bi bi-arrow-left" onClick={() => navigate('/')}></i>
+        <h2 className="user-profile-username">{user?.username}</h2>
+      </div>
 
-                <div className="user-profile-edit-btn">
-                    <button>Edit Profile</button>
-                </div>
-            </div>
-
-            <div className="user-profile-information">
-                <h3 className="user-profile-username">Jai</h3>
-                <h5 className="user-profile-fullname">Jairam</h5>
-                <p className="user-profile-bio">Developer</p>
-                <div className="link-and-date">
-                    <p className="user-profile-link">www.youtube.com</p>
-                    <p className="user-profile-created">6 September 2025</p>
-                </div>
-
-                <div className="following-followers-count">
-                    <p className="user-profile-following-count">10 Following</p>
-                    <p className="user-profile-followers-count">20 Following</p>
-                </div>
-
-            </div>
-
+      <div className="user-profile-images">
+        <div className="cover-image">
+          <img src={user?.coverImg || coverImage} alt="cover-image" />
         </div>
-    )
+        <div className="user-profile-pic">
+          <img src={user?.profileImg || profilePic} alt="profile-pic" />
+        </div>
+        <div className="user-profile-edit-btn">
+          <button>Edit Profile</button>
+        </div>
+      </div>
+
+      <div className="user-profile-information">
+        <h3 className="user-profile-username">{user?.username}</h3>
+        <h5 className="user-profile-fullname">{user?.fullname}</h5>
+        <p className="user-profile-bio">{user?.bio || 'No Bio'}</p>
+
+        <div className="link-and-date">
+          <p className="user-profile-link">{user?.link || "No Link"}</p>
+          <p className="user-profile-created">
+            {user?.createdAt ? format(new Date(user.createdAt), "do MMMM yyyy") : "Unknown date"}
+          </p>
+        </div>
+
+        <div className="following-followers-count">
+          <p className="user-profile-following-count">{user?.following?.length || 0} Following</p>
+          <p className="user-profile-followers-count">{user?.followers?.length || 0} Followers</p>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default UserProfile

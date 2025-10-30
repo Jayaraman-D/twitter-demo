@@ -275,36 +275,68 @@ export const getLikedPosts = async (req, res) => {
 };
 
 
+// export const userPosts = async (req, res) => {
+//     try {
+
+//         const { id } = req.params
+//         const user = await User.findById(id)
+//         if (!user) {
+//             return res.status(404).json({ error: "User not found" })
+//         }
+
+//         const posts = await Post.find({ user: id })
+//             .sort({ createdAt: -1 })
+//             .populate({
+//                 path: 'user',
+//                 select: '-password'
+//             })
+//             .populate({
+//                 path: 'comments.user',
+//                 select: '-password -followers -following -bio -link'
+//             });
+//         if (posts.length === 0) {
+//             res.status(200).json({ message: "No posts yet" })
+//         }
+
+//         res.status(200).json(posts)
+
+//     } catch (error) {
+//         console.error(`Error occurred in userPosts controller: ${error.message}`);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// }
+
 export const userPosts = async (req, res) => {
-    try {
+  try {
+    const { id } = req.params;
 
-        const { id } = req.params
-        const user = await User.findById(id)
-        if (!user) {
-            return res.status(404).json({ error: "User not found" })
-        }
-
-        const posts = await Post.find({ user: id })
-            .sort({ createdAt: -1 })
-            .populate({
-                path: 'user',
-                select: '-password'
-            })
-            .populate({
-                path: 'comments.user',
-                select: '-password -followers -following -bio -link'
-            });
-        if (posts.length === 0) {
-            res.status(200).json({ message: "No posts yet" })
-        }
-
-        res.status(200).json(posts)
-
-    } catch (error) {
-        console.error(`Error occurred in userPosts controller: ${error.message}`);
-        res.status(500).json({ error: 'Internal server error' });
+    // Check if user exists
+    const userExists = await User.exists({ _id: id });
+    if (!userExists) {
+      return res.status(404).json({ error: "User not found" });
     }
-}
+
+    // Get all posts of this user
+    const posts = await Post.find({ user: id })
+      .sort({ createdAt: -1 })
+      .populate({
+        path: 'user',
+        select: 'username fullname profileImg coverImg bio link'
+      })
+      .populate({
+        path: 'comments.user',
+        select: 'username fullname profileImg'
+      });
+
+    // Always return an array (even if empty)
+    return res.status(200).json(posts);
+
+  } catch (error) {
+    console.error(`Error occurred in userPosts controller: ${error.message}`);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 
 export const deleteComment = async (req, res) => {
     try {
