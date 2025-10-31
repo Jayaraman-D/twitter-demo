@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
     profileImg:'',
     coverImg:'',
     createdAt:'',
+    email:'',
     following: [],
     followers:[]
   });
@@ -39,7 +40,10 @@ export const UserProvider = ({ children }) => {
         createdAt:res.data.createdAt,
         fullname: res.data.fullname,
         following: res.data.following,
-        followers: res.data.followers
+        followers: res.data.followers,
+        email:res.data.email,
+      
+
       });
       setIsAuthenticated(true);
     } catch (error) {

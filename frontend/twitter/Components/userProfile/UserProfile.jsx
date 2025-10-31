@@ -1,12 +1,12 @@
 import React from 'react'
-import coverImage from '/logos/cover-image.png'
-import profilePic from '/logos/profile-pic.png'
+import coverImage from '/logos/x-cover-image.png'
+import profilePic from '/logos/default-user-image.png'
 import './UserProfile.css'
 import { useUser } from '../../src/context/UserContext'
 import { format } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 
-const UserProfile = () => {
+const UserProfile = ({ setActiveSection }) => {
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -25,12 +25,12 @@ const UserProfile = () => {
           <img src={user?.profileImg || profilePic} alt="profile-pic" />
         </div>
         <div className="user-profile-edit-btn">
-          <button>Edit Profile</button>
+          <button onClick={() => setActiveSection('editprofile')}>Edit Profile</button>
         </div>
       </div>
 
       <div className="user-profile-information">
-        <h3 className="user-profile-username">{user?.username}</h3>
+        <h3 className="user-profile-username"> @ {user?.username}</h3>
         <h5 className="user-profile-fullname">{user?.fullname}</h5>
         <p className="user-profile-bio">{user?.bio || 'No Bio'}</p>
 
