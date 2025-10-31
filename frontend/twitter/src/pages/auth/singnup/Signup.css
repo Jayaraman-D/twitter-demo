@@ -1,153 +1,151 @@
-/* Container holding everything */
-.signup-container {
+/* Signup.css */
+
+/* === Layout === */
+.signup-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #000; 
+  height: 100vh;
+  background-color: #000; /* X dark mode */
   color: #fff;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  padding: 2rem; /* Add padding for small screens */
-  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-/* Logo section */
-.logo {
+/* === Left Side (Logo) === */
+.signup-left {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.logo img {
-  width: 60% !important;
-  max-width: 200px;
+.big-x-logo {
+  width: 300px;
+  height: auto;
 }
 
-/* Signup form section */
-.signup {
+/* === Right Side (Form) === */
+.signup-right {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.signup form {
-  width: 100%;
-  max-width: 400px;
-  background-color: #000;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-sizing: border-box;
+.signup-card {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Headings */
-.signup h2 {
+.signup-card h2 {
   font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* === Form === */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1rem;
-  font-weight: bold;
-  text-align: center;
 }
 
-/* Inputs */
-.signup input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  margin: 0.5rem 0;
-  background-color: #000;
+.form-group label {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  background-color: transparent;
   border: 1px solid #333;
-  border-radius: 9999px;
+  border-radius: 6px;
+  padding: 10px 14px;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input::placeholder {
+  color: #777;
+}
+
+.form-group input:focus {
+  border-color: #1d9bf0; /* Twitter blue */
   outline: none;
-  transition: border-color 0.2s ease-in-out;
 }
 
-.signup input:focus {
-  border-color: #1da1f2;
-}
-
-/* Button */
-.signup button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #1da1f2;
+/* === Button === */
+.signup-btn {
+  background-color: #1d9bf0;
   border: none;
-  border-radius: 9999px;
   color: #fff;
+  font-weight: 600;
   font-size: 1rem;
-  font-weight: bold;
+  padding: 10px 0;
+  border-radius: 50px;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-.signup button:hover {
-  background-color: #0d8bd9;
+.signup-btn:hover {
+  background-color: #1a8cd8;
 }
 
-.signup button:disabled {
-  background-color: #555;
+.signup-btn:disabled {
+  background-color: #0c4a6e;
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
-/* Already have an account */
-.signup h3 {
-  font-size: 1rem;
-  margin-top: 1.5rem;
+/* === Error Message === */
+.error-msg {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-top: 8px;
   text-align: center;
-  font-weight: normal;
+}
+
+/* === Login Redirect === */
+.login-redirect {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
   color: #aaa;
+  font-size: 0.9rem;
 }
 
-.signup a {
-  display: block;
-  text-align: center;
-  margin-top: 0.5rem;
-  color: #1da1f2;
+.login-redirect a {
+  color: #1d9bf0;
   text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s ease-in-out;
+  font-weight: 500;
 }
 
-.signup a:hover {
-  color: #0d8bd9;
+.login-redirect a:hover {
+  text-decoration: underline;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .signup-container {
+/* === Responsive === */
+@media (max-width: 900px) {
+  .signup-page {
     flex-direction: column;
-    padding: 1rem;
+    padding: 20px;
   }
 
-  .logo {
-    margin-bottom: 1rem;
+  .signup-left {
+    margin-bottom: 30px;
   }
 
-  .logo img {
-    width: 40%;
-    max-width: 150px;
-  }
-
-  .signup form {
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .signup h2 {
-    font-size: 1.5rem;
-  }
-
-  .signup input {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.95rem;
-  }
-
-  .signup button {
-    font-size: 0.95rem;
-    padding: 0.6rem;
+  .big-x-logo {
+    width: 200px;
   }
 }

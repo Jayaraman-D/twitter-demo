@@ -176,6 +176,17 @@ export const updateUser = async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
+        const existingEmail = await User.findOne({ email, _id: { $ne: myId } });
+        if (existingEmail) {
+            return res.status(400).json({ error: "Email should be unique" });
+        }
+
+        const existingUser = await User.findOne({ username, _id: { $ne: myId } });
+        if (existingUser) {
+            return res.status(400).json({ error: "Username should be unique" });
+        }
+
+
         // Password validation
         if ((currentPassword && !newPassword) || (!currentPassword && newPassword)) {
             return res.status(400).json({ error: "Need to fill both password fields" });

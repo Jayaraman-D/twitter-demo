@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import './Signup.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '/logos/x-logo.png'
-import axios from 'axios';
+import axios from 'axios'
 import { BaseURL } from '../../../../BaseUrl/BaseURL'
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'
 
 const Signup = () => {
   const [userdata, setUserdata] = useState({
@@ -14,10 +13,9 @@ const Signup = () => {
     password: '',
     fullname: ''
   })
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [message, setMessage] = useState('')
 
-  // Check if all fields are non-empty
   const isFormValid =
     userdata.username.trim() &&
     userdata.email.trim() &&
@@ -29,90 +27,97 @@ const Signup = () => {
       setMessage("Please fill all the input fields")
       return
     }
+
     try {
-
-      const res = await axios.post(`${BaseURL}/api/auth/signup`,
-        { username: userdata.username, email: userdata.email, password: userdata.password, fullname: userdata.fullname },
-        { withCredentials: true });
-      toast.success(res.data.message);
-      setTimeout(() => {
-        navigate('/');
-      }, 1000)
-
-      setUserdata({
-        username: '',
-        email: '',
-        password: '',
-        fullname: ''
-      })
-
+      const res = await axios.post(`${BaseURL}/api/auth/signup`, userdata, { withCredentials: true })
+      toast.success(res.data.message)
+      setTimeout(() => navigate('/'), 1000)
+      setUserdata({ username: '', email: '', password: '', fullname: '' })
     } catch (error) {
-      console.log(error.message);
-      toast.error(error.response.data.error);
+      console.log(error.message)
+      toast.error(error.response?.data?.error || 'Signup failed')
     }
-
   }
 
   return (
     <>
-      <div className="signup-container">
-        <div className="logo">
-          <img src={logo} alt='logo' />
+      <div className="signup-page">
+        {/* Left Section - Big X Logo */}
+        <div className="signup-left">
+          <img src={logo} alt="X logo" className="big-x-logo" />
         </div>
-        <div className="signup">
-          <form onSubmit={(e) => e.preventDefault()}>
+
+        {/* Right Section - Signup Form */}
+        <div className="signup-right">
+          <div className="signup-card">
             <h2>Create your account</h2>
 
-            <input
-              type='text'
-              placeholder='Your fullname'
-              value={userdata.fullname}
-              onChange={(e) =>
-                setUserdata({ ...userdata, fullname: e.target.value })
-              }
-            />
-            <input
-              type='email'
-              placeholder='Email'
-              value={userdata.email}
-              onChange={(e) =>
-                setUserdata({ ...userdata, email: e.target.value })
-              }
-            />
-            <input
-              type='password'
-              placeholder='Password'
-              value={userdata.password}
-              onChange={(e) =>
-                setUserdata({ ...userdata, password: e.target.value })
-              }
-            />
-            <input
-              type='text'
-              placeholder='Username'
-              value={userdata.username}
-              onChange={(e) =>
-                setUserdata({ ...userdata, username: e.target.value })
-              }
-            />
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div className="form-group">
+                <label htmlFor="fullname">Full Name</label>
+                <input
+                  id="fullname"
+                  type="text"
+                  placeholder="Enter your full name"
+                  value={userdata.fullname}
+                  onChange={(e) => setUserdata({ ...userdata, fullname: e.target.value })}
+                />
+              </div>
 
-            <button
-              type="button"
-              onClick={handleSignupButton}
-              disabled={!isFormValid}
-            >
-              Signup
-            </button>
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={userdata.email}
+                  onChange={(e) => setUserdata({ ...userdata, email: e.target.value })}
+                />
+              </div>
 
-            {/* Show a message separately */}
-            {message && <p>{message}</p>}
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={userdata.password}
+                  onChange={(e) => setUserdata({ ...userdata, password: e.target.value })}
+                />
+              </div>
 
-            <h3>Already have an account?</h3>
-            <Link to='/login'>Login</Link>
-          </form>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Choose a username"
+                  value={userdata.username}
+                  onChange={(e) => setUserdata({ ...userdata, username: e.target.value })}
+                />
+              </div>
+
+              <button
+                type="button"
+                className="signup-btn"
+                onClick={handleSignupButton}
+                disabled={!isFormValid}
+              >
+                Sign up
+              </button>
+
+              {message && <p className="error-msg">{message}</p>}
+
+              <div className="login-redirect">
+                <p>Already have an account?</p>
+                <Link to="/login">Login</Link>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <ToastContainer position='top-center' autoClose={1000} theme='dark' />
+
+      <ToastContainer position="top-center" autoClose={1000} theme="dark" />
     </>
   )
 }

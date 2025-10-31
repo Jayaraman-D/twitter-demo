@@ -78,12 +78,14 @@ const EditProfile = ({ setActiveSection }) => {
 
             setTimeout(() => {
                 toast.success(res.data.message, {
-                    autoClose: 1000,
-                    pauseOnHover: false,
-                    pauseOnFocusLoss: false,
+                    autoClose: 2000,
+                    pauseOnHover: true,
+                    pauseOnFocusLoss: true,
                     toastId: 'profile-updated',
                 });
             }, 200);
+
+            setActiveSection('userprofile');
 
         } catch (error) {
             console.error("Error in handleEditProfile:", error.message);
